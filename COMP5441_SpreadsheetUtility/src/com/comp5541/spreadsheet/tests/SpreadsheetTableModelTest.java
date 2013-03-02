@@ -11,7 +11,7 @@ import com.comp5541.spreadsheet.model.SpreadsheetTableModel;
 public class SpreadsheetTableModelTest {
 
 	/**
-	 * test isCellEditable
+	 * isCellEditable Tests
 	 */
 	@Test
 	public void testIsCellEditable() {
@@ -19,9 +19,26 @@ public class SpreadsheetTableModelTest {
 		assertFalse(modeltest.isCellEditable(0, 0));
 		assertFalse(modeltest.isCellEditable(1, 1));
 	}
-
-			
 	
+	
+	/**
+	 * setValue & getValue Tests
+	 * @throws InvalidFormulaException
+	 * @throws InvalidValueException
+	 */
+	@Test
+	public void testSetValue() throws InvalidFormulaException, InvalidValueException {
+		SpreadsheetTableModel modeltest = SpreadsheetTableModel.getInstance();
+		modeltest.setValue("1.0", 1, 1);
+		assertEquals("1.0",modeltest.getValue(1, 1));
+		modeltest.setValue("2.99", 0, 0);
+		assertEquals("2.99",modeltest.getValue(0, 0));
+		modeltest.setValue("100", 9, 10);
+		assertEquals("100.0",modeltest.getValue(9, 10));
+		
+	}
+
+		
 	/**
 	 * test setValue with invalid value
 	 * @throws InvalidFormulaException
@@ -48,9 +65,7 @@ public class SpreadsheetTableModelTest {
 		modeltest.setValue("=A1A2", 0, 0);
 		
 	}
-	
-	
-	
+		
 
 	/**
 	 * getColumnName Tests
@@ -83,22 +98,17 @@ public class SpreadsheetTableModelTest {
 	}
 
 	/**
-	 * setValueAt Tests
+	 * setValueAt & getValueAt Tests
 	 */
 	@Test
 	public void testSetValueAtObjectIntInt() {
 		SpreadsheetTableModel modeltest = SpreadsheetTableModel.getInstance();
 		modeltest.setValueAt("11", 1, 1);
 		assertEquals("11.0",modeltest.getValueAt(1, 1));
-	}
-
-	/**
-	 * getValueAt Tests
-	 */
-	@Test
-	public void testGetValueAt() {
-		SpreadsheetTableModel modeltest = SpreadsheetTableModel.getInstance();
 		modeltest.setValueAt("11.1", 0, 0);
 		assertEquals("11.1" , modeltest.getValueAt(0, 0));
+		modeltest.setValueAt("999", 9, 10);
+		assertEquals("999.0" , modeltest.getValueAt(9, 10));
 	}
+
 }
